@@ -2,8 +2,7 @@
 // Only the public anon key belongs here. Never place a service_role key in this file.
 window.SUPABASE_CONFIG = {
   url: 'https://kgpmyxkrtkjqkqxedxsu.supabase.co',
-  key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtncG15eGtydGtqcWt4ZWR4c3UiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4NzIwMTYzOCwiZXhwIjoyMTAyNzc2MzQ4fQ.pnfFMrgJ9l8vGZ2O-ihGrWEvNe3fJ7qidYftvpDHb2g'
-};
+  key: 'sb_publishable_ajmJjeVZ9vC5-JVGWnONnQ_E2aUXY08};
 
 // KIP Financial CRM V4 authentication enhancement.
 window.addEventListener('load', () => setTimeout(() => {
