@@ -1,6 +1,9 @@
 -- Lead Management CRM Organization Edition
+-- Safe migration: works with an existing CRM database as well as a fresh Supabase project.
+
 create extension if not exists pgcrypto;
 
+-- 1. Organization table
 create table if not exists public.organizations (
   id uuid primary key default gen_random_uuid(),
   name text not null,
@@ -9,6 +12,7 @@ create table if not exists public.organizations (
   created_at timestamptz not null default now()
 );
 
+-- 2. Upgrade existing profiles table if it already exists.
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   full_name text,
@@ -18,11 +22,38 @@ create table if not exists public.profiles (
   updated_at timestamptz not null default now()
 );
 
+alter table public.profiles add column if not exists full_name text;
+alter table public.profiles add column if not exists role text default 'employee';
+alter table public.profiles add column if not exists organization_id uuid;
+alter table public.profiles add column if not exists created_at timestamptz default now();
+alter table public.profiles add column if not exists updated_at timestamptz default now();
+
+-- Add the foreign key only if it is not already present.
+do $$
+begin
+  if not exists (
+    select 1 from pg_constraint
+    where conrelid='public.profiles'::regclass and conname='profiles_organization_id_fkey'
+  ) then
+    alter table public.profiles
+      add constraint profiles_organization_id_fkey
+      foreign key (organization_id) references public.organizations(id) on delete set null;
+  end if;
+end $$;
+
+-- 3. Upgrade existing leads table if it already exists.
+-- The old CRM may already contain leads, so we add organization_id instead of recreating the table.
+alter table public.leads add column if not exists organization_id uuid;
+alter table public.leads add column if not exists created_by uuid;
+alter table public.leads add column if not exists assigned_to uuid;
+alter table public.leads add column if not exists updated_at timestamptz default now();
+
+-- If leads did not exist before, create the complete table.
 create table if not exists public.leads (
   id uuid primary key default gen_random_uuid(),
-  organization_id uuid not null references public.organizations(id) on delete cascade,
-  created_by uuid not null references auth.users(id) on delete restrict,
-  assigned_to uuid references auth.users(id) on delete set null,
+  organization_id uuid,
+  created_by uuid,
+  assigned_to uuid,
   name text not null,
   company text,
   phone text,
@@ -37,6 +68,29 @@ create table if not exists public.leads (
   updated_at timestamptz not null default now()
 );
 
+-- Add missing foreign keys safely.
+do $$
+begin
+  if not exists (
+    select 1 from pg_constraint where conrelid='public.leads'::regclass and conname='leads_organization_id_fkey'
+  ) then
+    alter table public.leads add constraint leads_organization_id_fkey
+      foreign key (organization_id) references public.organizations(id) on delete cascade;
+  end if;
+  if not exists (
+    select 1 from pg_constraint where conrelid='public.leads'::regclass and conname='leads_created_by_fkey'
+  ) then
+    alter table public.leads add constraint leads_created_by_fkey
+      foreign key (created_by) references auth.users(id) on delete set null;
+  end if;
+  if not exists (
+    select 1 from pg_constraint where conrelid='public.leads'::regclass and conname='leads_assigned_to_fkey'
+  ) then
+    alter table public.leads add constraint leads_assigned_to_fkey
+      foreign key (assigned_to) references auth.users(id) on delete set null;
+  end if;
+end $$;
+
 create index if not exists profiles_org_idx on public.profiles(organization_id);
 create index if not exists leads_org_idx on public.leads(organization_id);
 create index if not exists leads_assigned_idx on public.leads(assigned_to);
@@ -49,7 +103,7 @@ alter table public.leads enable row level security;
 
 create or replace function public.my_org_id()
 returns uuid language sql stable security definer set search_path=public
-as $$ select organization_id from public.profiles where id=auth.uid() $$;
+as $$ select organization_id from public.profiles where id=auth.uid() limit 1 $$;
 
 create or replace function public.is_admin()
 returns boolean language sql stable security definer set search_path=public
@@ -64,7 +118,8 @@ begin
     raise exception 'User already belongs to an organization';
   end if;
   insert into public.organizations(name,created_by) values(trim(org_name),auth.uid()) returning * into o;
-  insert into public.profiles(id,full_name,role,organization_id) values(auth.uid(),nullif(trim(user_name),''),'admin',o.id)
+  insert into public.profiles(id,full_name,role,organization_id)
+  values(auth.uid(),nullif(trim(user_name),''),'admin',o.id)
   on conflict (id) do update set full_name=excluded.full_name,role='admin',organization_id=o.id;
   return o;
 end; $$;
@@ -74,9 +129,13 @@ returns public.organizations language plpgsql security definer set search_path=p
 as $$
 declare o public.organizations;
 begin
+  if exists(select 1 from public.profiles where id=auth.uid() and organization_id is not null) then
+    raise exception 'User already belongs to an organization';
+  end if;
   select * into o from public.organizations where upper(join_code)=upper(trim(code));
   if o.id is null then raise exception 'Invalid organization code'; end if;
-  insert into public.profiles(id,full_name,role,organization_id) values(auth.uid(),nullif(trim(user_name),''),'employee',o.id)
+  insert into public.profiles(id,full_name,role,organization_id)
+  values(auth.uid(),nullif(trim(user_name),''),'employee',o.id)
   on conflict (id) do update set full_name=excluded.full_name,organization_id=o.id;
   return o;
 end; $$;
@@ -96,7 +155,11 @@ create policy "users can view own profile" on public.profiles for select using (
 create policy "admins can view org profiles" on public.profiles for select using (organization_id=public.my_org_id() and public.is_admin());
 create policy "users can update own profile" on public.profiles for update using (id=auth.uid()) with check (id=auth.uid());
 
--- Employees can work with every lead in their organization; admins can manage all organization leads.
+-- Existing legacy policies are replaced with organization policies.
+drop policy if exists "Users can view own leads" on public.leads;
+drop policy if exists "Users can insert own leads" on public.leads;
+drop policy if exists "Users can update own leads" on public.leads;
+drop policy if exists "Users can delete own leads" on public.leads;
 drop policy if exists "org members can read leads" on public.leads;
 drop policy if exists "org members can insert leads" on public.leads;
 drop policy if exists "org members can update leads" on public.leads;
