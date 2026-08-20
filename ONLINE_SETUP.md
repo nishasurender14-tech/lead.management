@@ -1,51 +1,46 @@
-# Online CRM Setup
+# Organization CRM Setup
 
-The online version uses Supabase Auth + PostgreSQL with Row Level Security.
+## 1. Supabase
+Create/open your Supabase project and open **SQL Editor**.
 
-## 1. Create Supabase project
+Run the complete contents of `supabase/schema.sql`.
 
-Create a project at https://supabase.com/.
-
-## 2. Create the database
-
-Open **SQL Editor** in Supabase and run the complete contents of:
-
-`supabase/schema.sql`
-
-This creates the `leads` table and policies so each signed-in user can only read/write their own leads.
-
-## 3. Get browser credentials
-
-In Supabase open **Project Settings → API** and copy:
-
+## 2. API credentials
+In **Project Settings → API**, copy:
 - Project URL
 - `anon` / `public` key
 
-Do **not** put a `service_role` key in the website.
+Never put a `service_role` key in the browser.
 
-## 4. Open the CRM
+## 3. Authentication URL
+In **Authentication → URL Configuration** set:
 
-Deploy this repository with GitHub Pages. When the CRM opens, click **Database Setup**, paste the Project URL and anon/public key, and connect.
+Site URL:
+`https://nishasurender14-tech.github.io/lead.management/`
 
-The credentials are stored only in that browser's local storage. They are not committed to GitHub.
+Redirect URL:
+`https://nishasurender14-tech.github.io/lead.management/**`
 
-## 5. Create your account
+Keep the Email provider enabled. If email confirmation is enabled, users must confirm their email before signing in.
 
-Use **Create Account** with an email and password. If email confirmation is enabled in Supabase, confirm the email before signing in.
+## 4. First organization admin
+Open the CRM and create an account. After email confirmation/sign-in, the CRM asks for organization setup. Create your organization. The first creator becomes **Admin**.
 
-## 6. Team usage
+## 5. Add employees
+Admin → Team → copy the **Organization Code**.
 
-Each team member creates their own login. The current security model isolates leads by user account. A later team-management version can add an organization/company table, roles, shared leads, assignments and admin controls.
+Give the code to employees. Each employee creates their own account, confirms their email if required, then uses **Join Organization** and enters the code.
 
-## Current online features
+## 6. Organization model
+The CRM now stores:
+- organizations
+- employee profiles and roles
+- shared organization leads
+- lead creator
+- lead assignment
+- organization-level Row Level Security
 
-- Secure email/password authentication
-- PostgreSQL-backed leads
-- Row Level Security
-- Add/edit/delete leads
-- Dashboard and pipeline
-- Search and status filtering
-- Follow-up dates
-- Reports
-- Multi-device persistence
-- Sign out
+Employees can access the shared leads of their organization. Admins can view the organization team and all organization leads.
+
+## 7. GitHub Pages
+The `main` branch is the published branch. After changes are merged to `main`, GitHub Pages publishes the updated CRM.
