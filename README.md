@@ -1,31 +1,22 @@
-# Lead Management CRM
+# KIP Financial CRM
 
-Responsive Lead Management CRM MVP for sales teams.
+Fresh CRM V4 rebuild for KIP Financial.
 
-## Included
+## Architecture
 
-- Dashboard KPIs
-- Lead database with add/edit/delete
-- Search, status and executive filters
-- Lead pipeline
-- Follow-up tracking
-- Browser reminders/due follow-ups
-- WhatsApp contact button
-- Email contact button
-- CSV import/export
-- Team and lead assignment view
-- Conversion and source reports
-- Responsive desktop/mobile UI
-- Demo login
+Objects → Records → Properties → Associations → Activities
 
-## Open the enhanced version
+Core CRM: Contacts, Companies, Leads, Deals, Tickets, Activities.
+KIP business objects: Projects, Tenders, Applications, Schemes & Subsidies, Registrations, Documents, Services.
+Revenue: Quotes, Invoices, Payments.
+Marketing & Analytics: Campaigns, Reports, Forecast.
+Administration: Users & Teams, Settings.
 
-Open `pro.html` for the enhanced CRM interface.
+## Setup
 
-**Demo login:** `admin` / `admin123`
+1. Open the GitHub Pages site: https://nishasurender14-tech.github.io/lead.management/
+2. In Supabase SQL Editor, run `supabase/kip-financial-v4-schema.sql` once.
+3. Open the site and create the first account.
+4. The first account creates the KIP Financial organization and administrator profile.
 
-## Current storage model
-
-The application currently uses browser `localStorage`, so data is local to the browser/device. WhatsApp and email actions use the user's existing apps/services.
-
-For a production multi-user deployment, connect the same UI to a secure backend/database (for example PostgreSQL/MySQL) and add server-side authentication, permissions, audit logs, and a WhatsApp Business API provider. Never put database passwords, API secrets, or service-account credentials in this public repository.
+The V4 schema uses isolated `kip4_` tables. It does not depend on the previous CRM tables.
