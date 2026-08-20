@@ -1,46 +1,31 @@
-# Organization CRM Setup
+# KIP Financial CRM V4 — Online Setup
 
-## 1. Supabase
-Create/open your Supabase project and open **SQL Editor**.
+## 1. Database
 
-Run the complete contents of `supabase/schema.sql`.
+Open your Supabase project → SQL Editor → New Query.
 
-## 2. API credentials
-In **Project Settings → API**, copy:
-- Project URL
-- `anon` / `public` key
+Run the complete file:
 
-Never put a `service_role` key in the browser.
+`supabase/kip-financial-v4-schema.sql`
 
-## 3. Authentication URL
-In **Authentication → URL Configuration** set:
+This creates the fresh V4 CRM tables with the `kip4_` prefix and enables Row Level Security.
 
-Site URL:
-`https://nishasurender14-tech.github.io/lead.management/`
+## 2. Web app
 
-Redirect URL:
-`https://nishasurender14-tech.github.io/lead.management/**`
+Open:
 
-Keep the Email provider enabled. If email confirmation is enabled, users must confirm their email before signing in.
+https://nishasurender14-tech.github.io/lead.management/
 
-## 4. First organization admin
-Open the CRM and create an account. After email confirmation/sign-in, the CRM asks for organization setup. Create your organization. The first creator becomes **Admin**.
+The root URL is now the only main CRM entry point.
 
-## 5. Add employees
-Admin → Team → copy the **Organization Code**.
+## 3. First account
 
-Give the code to employees. Each employee creates their own account, confirms their email if required, then uses **Join Organization** and enters the code.
+Click Create account. The first successful session asks for your name and organization. The default organization is KIP Financial.
 
-## 6. Organization model
-The CRM now stores:
-- organizations
-- employee profiles and roles
-- shared organization leads
-- lead creator
-- lead assignment
-- organization-level Row Level Security
+## 4. CRM model
 
-Employees can access the shared leads of their organization. Admins can view the organization team and all organization leads.
+Contacts, Companies, Leads, Deals and Tickets are first-class CRM objects. KIP-specific objects include Projects, Tenders, Applications, Schemes & Subsidies, Registrations and Documents. Revenue includes Services, Quotes, Invoices and Payments. Records use JSON properties, two-way association records, activities and pipelines.
 
-## 7. GitHub Pages
-The `main` branch is the published branch. After changes are merged to `main`, GitHub Pages publishes the updated CRM.
+## 5. Important
+
+Do not use the old CRM HTML pages. They were removed from the main application. The V4 database is isolated from the previous CRM schema so the old data is not silently mixed into the new system.
