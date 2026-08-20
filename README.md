@@ -1,22 +1,31 @@
 # Lead Management CRM
 
-A lightweight, responsive lead-management application that runs directly in the browser.
+Responsive Lead Management CRM MVP for sales teams.
 
-## Features
+## Included
 
-- Dashboard with lead KPIs
-- Add, edit and delete leads
-- Lead status pipeline
-- Search and status filtering
-- Follow-up dates and notes
-- Source and status reports
-- Responsive desktop/mobile layout
-- Browser `localStorage` persistence
+- Dashboard KPIs
+- Lead database with add/edit/delete
+- Search, status and executive filters
+- Lead pipeline
+- Follow-up tracking
+- Browser reminders/due follow-ups
+- WhatsApp contact button
+- Email contact button
+- CSV import/export
+- Team and lead assignment view
+- Conversion and source reports
+- Responsive desktop/mobile UI
+- Demo login
 
-## Run
+## Open the enhanced version
 
-Open `index.html` in a browser, or enable GitHub Pages for the repository.
+Open `pro.html` for the enhanced CRM interface.
 
-## Data
+**Demo login:** `admin` / `admin123`
 
-This first version stores data in the browser using `localStorage`. It is intended as a working front-end MVP; production multi-user authentication and a shared database/API can be added next.
+## Current storage model
+
+The application currently uses browser `localStorage`, so data is local to the browser/device. WhatsApp and email actions use the user's existing apps/services.
+
+For a production multi-user deployment, connect the same UI to a secure backend/database (for example PostgreSQL/MySQL) and add server-side authentication, permissions, audit logs, and a WhatsApp Business API provider. Never put database passwords, API secrets, or service-account credentials in this public repository.
