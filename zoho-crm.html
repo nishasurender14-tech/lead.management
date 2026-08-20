@@ -1,37 +1,3068 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KIP CRM Pro</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase/config.js"></script><style>
-*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f5f7fb;color:#172033}button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}.auth{min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,#eef4ff,#f8fafc);padding:20px}.authbox{width:min(440px,100%);background:#fff;padding:32px;border-radius:22px;box-shadow:0 25px 70px #17203320;border:1px solid #e5e7eb}.logo{display:flex;align-items:center;gap:12px;margin-bottom:25px}.logoMark{width:46px;height:46px;border-radius:13px;background:#2563eb;color:#fff;display:grid;place-items:center;font-weight:900;font-size:22px}.logo h1{font-size:23px;margin:0}.logo p{margin:3px 0;color:#64748b;font-size:13px}.field{width:100%;padding:11px 12px;border:1px solid #d9dee8;border-radius:10px;margin:5px 0;background:#fff}.field:focus{outline:0;border-color:#60a5fa;box-shadow:0 0 0 3px #dbeafe}.btn{border:1px solid #d9dee8;background:#fff;padding:9px 13px;border-radius:9px;font-weight:700}.btn.primary{background:#2563eb;color:#fff;border-color:#2563eb}.btn.danger{color:#b91c1c}.msg{padding:10px;border-radius:9px;background:#fee2e2;color:#991b1b;margin:10px 0;font-size:13px}.msg.ok{background:#dcfce7;color:#166534}.side{position:fixed;left:0;top:0;bottom:0;width:245px;background:#0b1220;color:#fff;padding:18px 12px}.brand{font-weight:900;font-size:18px;padding:8px 10px 22px}.brand span{color:#60a5fa}.navLabel{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:1px;padding:10px}.nav button{display:block;width:100%;text-align:left;background:transparent;border:0;color:#cbd5e1;padding:10px 12px;border-radius:9px;margin:2px 0}.nav button:hover,.nav button.active{background:#172238;color:#fff}.main{margin-left:245px;padding:24px;max-width:1700px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.top h1{margin:0;font-size:26px}.muted{color:#64748b}.pill{background:#fff;border:1px solid #e5e7eb;padding:8px 12px;border-radius:999px;font-size:13px}.section{display:none}.section.active{display:block}.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.card,.panel{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:17px}.card .label{font-size:12px;color:#64748b}.card .value{font-size:27px;font-weight:900;margin-top:6px}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:16px}.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.head h2,.head h3{margin:0}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.toolbar .field{max-width:300px;margin:0}.tablewrap{overflow:auto;border:1px solid #e5e7eb;border-radius:10px}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px 12px;border-bottom:1px solid #edf0f4;text-align:left;white-space:nowrap}.table th{font-size:11px;text-transform:uppercase;color:#64748b;background:#fafbfc}.badge{display:inline-block;padding:4px 8px;border-radius:99px;background:#eef2ff;color:#3730a3;font-size:11px;font-weight:800}.green{background:#dcfce7;color:#166534}.amber{background:#fef3c7;color:#92400e}.red{background:#fee2e2;color:#991b1b}.blue{background:#e0f2fe;color:#075985}.bar{height:8px;background:#e5e7eb;border-radius:99px;overflow:hidden;margin:7px 0 13px}.bar i{display:block;height:100%;background:#2563eb}.pipeline{display:grid;grid-template-columns:repeat(6,190px);gap:10px;overflow:auto}.stage{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:10px;min-height:160px}.deal{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:9px;margin:7px 0}.money{font-weight:900;color:#059669}.modal{position:fixed;inset:0;background:#0008;display:none;place-items:center;padding:18px;z-index:20}.modal.open{display:grid}.modalbox{width:min(720px,96%);max-height:92vh;overflow:auto;background:#fff;border-radius:16px;padding:20px}.form{display:grid;grid-template-columns:1fr 1fr;gap:8px}.full{grid-column:1/-1}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}.toast{position:fixed;right:20px;bottom:20px;background:#111827;color:#fff;padding:12px 15px;border-radius:10px;z-index:50}.empty{text-align:center;padding:28px;color:#64748b}@media(max-width:1000px){.cards{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:1fr}}@media(max-width:700px){.side{width:64px}.brand,.navLabel{display:none}.nav button{text-align:center}.main{margin-left:64px;padding:15px}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.cards,.form{grid-template-columns:1fr}.full{grid-column:auto}}
-</style></head><body>
-<div id="auth" class="auth"><div class="authbox"><div class="logo"><div class="logoMark">K</div><div><h1>KIP CRM Pro</h1><p>Online Sales & Lead Management</p></div></div><div id="authMsg"></div><input id="email" class="field" type="email" placeholder="Email address"><input id="password" class="field" type="password" placeholder="Password"><button class="btn primary" style="width:100%;margin-top:8px" onclick="login()">Sign in</button><button class="btn" style="width:100%;margin-top:8px" onclick="signup()">Create account</button></div></div>
-<div id="app" class="hidden"><aside class="side"><div class="brand">KIP <span>CRM Pro</span></div><div class="navLabel">Workspace</div><div class="nav"><button class="active" data-page="dashboard">⌂ &nbsp;Dashboard</button><button data-page="leads">◉ &nbsp;Leads</button><button data-page="contacts">♙ &nbsp;Contacts</button><button data-page="accounts">▣ &nbsp;Accounts</button><button data-page="deals">◆ &nbsp;Deals</button><button data-page="activities">✓ &nbsp;Activities</button><button data-page="campaigns">✦ &nbsp;Campaigns</button><button data-page="reports">▥ &nbsp;Reports</button><button id="teamBtn" data-page="team" class="hidden">♟ &nbsp;Team</button></div><div class="navLabel">Account</div><div class="nav"><button onclick="logout()">↪ &nbsp;Sign out</button></div></aside><main class="main"><div class="top"><div><h1 id="title">Dashboard</h1><div id="org" class="muted">—</div></div><div style="display:flex;gap:8px;align-items:center"><span id="user" class="pill"></span><button class="btn primary" onclick="openForm('lead')">+ Add</button></div></div>
-<section id="dashboard" class="section active"><div id="kpis" class="cards"></div><div class="grid"><div class="panel"><div class="head"><h3>Pipeline</h3></div><div id="pipeSummary"></div></div><div class="panel"><div class="head"><h3>Lead Sources</h3></div><div id="sourceSummary"></div></div></div><div class="panel" style="margin-top:16px"><div class="head"><h3>Recent Leads</h3><button class="btn" onclick="go('leads')">View all</button></div><div id="recent"></div></div></section>
-<section id="leads" class="section"><div class="head"><div><h2>Leads</h2><div class="muted">Prospects and enquiries</div></div><button class="btn primary" onclick="openForm('lead')">+ New Lead</button></div><div class="panel"><div class="toolbar"><input id="search" class="field" placeholder="Search leads" oninput="renderLeads()"><select id="filter" class="field" onchange="renderLeads()"><option>All</option><option>New</option><option>Contacted</option><option>Follow-up</option><option>Converted</option><option>Not Interested</option><option>Lost</option></select></div><div id="leadTable"></div></div></section>
-<section id="contacts" class="section"><div class="head"><div><h2>Contacts</h2><div class="muted">People linked to accounts</div></div><button class="btn primary" onclick="openForm('contact')">+ New Contact</button></div><div class="panel" id="contactsTable"></div></section>
-<section id="accounts" class="section"><div class="head"><div><h2>Accounts</h2><div class="muted">Companies and organizations</div></div><button class="btn primary" onclick="openForm('account')">+ New Account</button></div><div class="panel" id="accountsTable"></div></section>
-<section id="deals" class="section"><div class="head"><div><h2>Deals</h2><div class="muted">Sales pipeline</div></div><button class="btn primary" onclick="openForm('deal')">+ New Deal</button></div><div class="panel"><div id="dealPipe" class="pipeline"></div></div></section>
-<section id="activities" class="section"><div class="head"><div><h2>Activities</h2><div class="muted">Tasks, calls, meetings and follow-ups</div></div><button class="btn primary" onclick="openForm('activity')">+ New Activity</button></div><div class="panel" id="activitiesTable"></div></section>
-<section id="campaigns" class="section"><div class="head"><div><h2>Campaigns</h2><div class="muted">Marketing campaigns</div></div><button class="btn primary" onclick="openForm('campaign')">+ New Campaign</button></div><div class="panel" id="campaignsTable"></div></section>
-<section id="reports" class="section"><div class="head"><div><h2>Reports & Analytics</h2><div class="muted">Live organization metrics</div></div></div><div id="reportKpis" class="cards"></div><div class="grid"><div class="panel"><h3>Lead Status</h3><div id="statusReport"></div></div><div class="panel"><h3>Deal Stages</h3><div id="dealReport"></div></div></div></section>
-<section id="team" class="section"><div class="head"><div><h2>Team</h2><div class="muted">Organization members</div></div></div><div class="panel"><b>Join Code</b><div id="joinCode" style="font-size:28px;font-weight:900;letter-spacing:4px;margin:7px 0 15px">—</div><div id="teamTable"></div></div></section>
-</main></div><div id="modal" class="modal"><div class="modalbox"><div class="head"><h2 id="modalTitle">New</h2><button class="btn" onclick="closeModal()">✕</button></div><div id="modalBody"></div></div></div><div id="toast" class="toast hidden"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIP CRM Pro</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase/config.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7fb;
+      color: #172033;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* AUTH */
+
+    .auth-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #eef4ff, #f8fafc);
+    }
+
+    .auth-card {
+      width: 420px;
+      max-width: 100%;
+      background: #fff;
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 25px 70px rgba(0,0,0,.12);
+      border: 1px solid #e5e7eb;
+    }
+
+    .brand-box {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: #2563eb;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .brand-subtitle {
+      margin: 4px 0 0;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px 13px;
+      margin: 6px 0;
+      border: 1px solid #d8dee8;
+      border-radius: 10px;
+      outline: none;
+      background: white;
+    }
+
+    .input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px #dbeafe;
+    }
+
+    .btn {
+      border: 1px solid #d8dee8;
+      background: white;
+      padding: 10px 15px;
+      border-radius: 9px;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+
+    .btn-danger {
+      color: #b91c1c;
+    }
+
+    .auth-card .btn {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .message {
+      padding: 11px;
+      border-radius: 9px;
+      margin: 10px 0;
+      background: #fee2e2;
+      color: #991b1b;
+      font-size: 14px;
+    }
+
+    .message.success {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    /* APP */
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 240px;
+      background: #0b1220;
+      color: white;
+      padding: 18px 12px;
+      overflow-y: auto;
+    }
+
+    .sidebar-brand {
+      padding: 10px;
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-brand span {
+      color: #60a5fa;
+    }
+
+    .nav-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #64748b;
+      letter-spacing: 1px;
+      padding: 10px;
+    }
+
+    .nav-button {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: #cbd5e1;
+      padding: 11px 12px;
+      text-align: left;
+      border-radius: 9px;
+      margin: 2px 0;
+    }
+
+    .nav-button:hover,
+    .nav-button.active {
+      background: #172238;
+      color: white;
+    }
+
+    .main {
+      margin-left: 240px;
+      padding: 25px;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .muted {
+      color: #64748b;
+    }
+
+    .user-pill {
+      background: white;
+      border: 1px solid #e5e7eb;
+      padding: 9px 13px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    /* DASHBOARD */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .card-label {
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .card-value {
+      font-size: 28px;
+      font-weight: 900;
+      margin-top: 7px;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .panel-header h2,
+    .panel-header h3 {
+      margin: 0;
+    }
+
+    /* TABLE */
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #edf0f4;
+      white-space: nowrap;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #64748b;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .badge.green {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge.red {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .badge.yellow {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge.blue {
+      background: #e0f2fe;
+      color: #075985;
+    }
+
+    /* MODAL */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      width: 650px;
+      max-width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 16px;
+      padding: 25px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .form-full {
+      grid-column: 1 / -1;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    /* PIPELINE */
+
+    .pipeline {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+    }
+
+    .pipeline-stage {
+      min-width: 190px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .deal-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      padding: 10px;
+      border-radius: 9px;
+      margin-top: 8px;
+    }
+
+    .money {
+      color: #059669;
+      font-weight: 900;
+    }
+
+    .empty {
+      text-align: center;
+      color: #64748b;
+      padding: 30px;
+    }
+
+    @media(max-width:900px) {
+      .cards {
+        grid-template-columns: repeat(2,1fr);
+      }
+    }
+
+    @media(max-width:700px) {
+      .sidebar {
+        width: 65px;
+      }
+
+      .sidebar-brand,
+      .nav-title {
+        display: none;
+      }
+
+      .nav-button {
+        text-align: center;
+        padding: 12px 5px;
+      }
+
+      .main {
+        margin-left: 65px;
+        padding: 15px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-full {
+        grid-column: auto;
+      }
+    }
+
+    @media(max-width:500px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ================= AUTH ================= -->
+
+<div id="authScreen" class="auth-screen">
+
+  <div class="auth-card">
+
+    <div class="brand-box">
+      <div class="brand-logo">K</div>
+
+      <div>
+        <h1 class="brand-title">KIP CRM Pro</h1>
+        <p class="brand-subtitle">
+          Online Sales & Lead Management
+        </p>
+      </div>
+    </div>
+
+    <div id="authMessage"></div>
+
+    <input
+      id="email"
+      class="input"
+      type="email"
+      placeholder="Email address"
+    >
+
+    <input
+      id="password"
+      class="input"
+      type="password"
+      placeholder="Password"
+    >
+
+    <button
+      id="loginButton"
+      class="btn btn-primary"
+      onclick="login()"
+    >
+      Sign In
+    </button>
+
+    <button
+      id="signupButton"
+      class="btn"
+      onclick="signup()"
+    >
+      Create Account
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ================= APPLICATION ================= -->
+
+<div id="application" class="hidden">
+
+  <aside class="sidebar">
+
+    <div class="sidebar-brand">
+      KIP <span>CRM Pro</span>
+    </div>
+
+    <div class="nav-title">
+      Workspace
+    </div>
+
+    <button class="nav-button active" data-page="dashboard">
+      🏠 Dashboard
+    </button>
+
+    <button class="nav-button" data-page="leads">
+      👤 Leads
+    </button>
+
+    <button class="nav-button" data-page="contacts">
+      📇 Contacts
+    </button>
+
+    <button class="nav-button" data-page="accounts">
+      🏢 Accounts
+    </button>
+
+    <button class="nav-button" data-page="deals">
+      💰 Deals
+    </button>
+
+    <button class="nav-button" data-page="activities">
+      📋 Activities
+    </button>
+
+    <button class="nav-button" data-page="campaigns">
+      📣 Campaigns
+    </button>
+
+    <button class="nav-button" data-page="reports">
+      📊 Reports
+    </button>
+
+    <div id="teamNavigation" class="hidden">
+
+      <div class="nav-title">
+        Organization
+      </div>
+
+      <button class="nav-button" data-page="team">
+        👥 Team
+      </button>
+
+    </div>
+
+    <div class="nav-title">
+      Account
+    </div>
+
+    <button
+      class="nav-button"
+      onclick="logout()"
+    >
+      🚪 Sign Out
+    </button>
+
+  </aside>
+
+
+  <main class="main">
+
+    <div class="topbar">
+
+      <div>
+
+        <h1 id="pageTitle">
+          Dashboard
+        </h1>
+
+        <div
+          id="organizationName"
+          class="muted"
+        >
+          —
+        </div>
+
+      </div>
+
+      <div>
+
+        <span
+          id="userName"
+          class="user-pill"
+        >
+          —
+        </span>
+
+        <button
+          class="btn btn-primary"
+          onclick="openForm('lead')"
+        >
+          + Add Lead
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- DASHBOARD -->
+
+    <section
+      id="page-dashboard"
+      class="page"
+    >
+
+      <div
+        id="dashboardCards"
+        class="cards"
+      ></div>
+
+      <div class="panel">
+
+        <div class="panel-header">
+
+          <h3>
+            Recent Leads
+          </h3>
+
+          <button
+            class="btn"
+            onclick="showPage('leads')"
+          >
+            View All
+          </button>
+
+        </div>
+
+        <div id="recentLeads"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- LEADS -->
+
+    <section
+      id="page-leads"
+      class="page hidden"
+    >
+
+      <div class="panel">
+
+        <div class="panel-header">
+
+          <div>
+
+            <h2>Leads</h2>
+
+            <div class="muted">
+              Manage prospects and enquiries
+            </div>
+
+          </div>
+
+          <button
+            class="btn btn-primary"
+            onclick="openForm('lead')"
+          >
+            + New Lead
+          </button>
+
+        </div>
+
+        <input
+          id="leadSearch"
+          class="input"
+          placeholder="Search leads..."
+          oninput="renderLeads()"
+        >
+
+        <div id="leadsTable"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTACTS -->
+
+    <section
+      id="page-contacts"
+      class="page hidden"
+    >
+
+      <div class="panel">
+
+        <div class="panel-header">
+
+          <h2>Contacts</h2>
+
+          <button
+            class="btn btn-primary"
+            onclick="openForm('contact')"
+          >
+            + New Contact
+          </button>
+
+        </div>
+
+        <div id="contactsTable"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ACCOUNTS -->
+
+    <section
+      id="page-accounts"
+      class="page hidden"
+    >
+
+      <div class="panel">
+
+        <div class="panel-header">
+
+          <h2>Accounts</h2>
+
+          <button
+            class="btn btn-primary"
+            onclick="openForm('account')"
+          >
+            + New Account
+          </button>
+
+        </div>
+
+        <div id="accountsTable"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- DEALS -->
+
+    <section
+      id="page-deals"
+      class="page hidden"
+    >
+
+      <div class="panel">
+
+        <div class="panel-header">
+
+          <div>
+
+            <h2>Deals</h2>
+
+            <div class="muted">
+              Sales pipeline
+            </div>
+
+          </div>
+
+          <button
+            class="btn btn-primary"
+            onclick="openForm('deal')"
+          >
+            + New Deal
+          </button>
+
+        </div>
+
+        <div
+          id="dealPipeline"
+          class="pipeline"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ACTIVITIES -->
+
+    <section
+      id="page-activities"
+      class="page hidden"
+    >
+
+      <div class="panel">
+
+        <div class="panel-header">
+
+          <h2>Activities</h2>
+
+          <button
+            class="btn btn-primary"
+            onclick="openForm('activity')"
+          >
+            + New Activity
+          </button>
+
+        </div>
+
+        <div id="activitiesTable"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CAMPAIGNS -->
+
+    <section
+      id="page-campaigns"
+      class="page hidden"
+    >
+
+      <div class="panel">
+
+        <div class="panel-header">
+
+          <h2>Campaigns</h2>
+
+          <button
+            class="btn btn-primary"
+            onclick="openForm('campaign')"
+          >
+            + New Campaign
+          </button>
+
+        </div>
+
+        <div id="campaignsTable"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- REPORTS -->
+
+    <section
+      id="page-reports"
+      class="page hidden"
+    >
+
+      <div
+        id="reportCards"
+        class="cards"
+      ></div>
+
+      <div class="panel">
+
+        <h3>
+          Lead Status
+        </h3>
+
+        <div id="leadStatusReport"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- TEAM -->
+
+    <section
+      id="page-team"
+      class="page hidden"
+    >
+
+      <div class="panel">
+
+        <h2>
+          Team
+        </h2>
+
+        <p>
+          Organization team members
+        </p>
+
+        <div id="teamTable"></div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- ================= MODAL ================= -->
+
+<div
+  id="modal"
+  class="modal"
+>
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2 id="modalTitle">
+        New Record
+      </h2>
+
+      <button
+        class="btn"
+        onclick="closeModal()"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <div id="modalBody"></div>
+
+    <div class="modal-actions">
+
+      <button
+        class="btn"
+        onclick="closeModal()"
+      >
+        Cancel
+      </button>
+
+      <button
+        id="modalSave"
+        class="btn btn-primary"
+      >
+        Save
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <script>
-const db=supabase.createClient(window.SUPABASE_CONFIG.url,window.SUPABASE_CONFIG.key);let user=null,profile=null,org=null,members=[];const D={leads:[],contacts:[],accounts:[],deals:[],activities:[],campaigns:[]};const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function msg(t,ok=false){$('authMsg').innerHTML='<div class="msg '+(ok?'ok':'')+'">'+esc(t)+'</div>'}function toast(t){$('toast').textContent=t;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),2500)}function money(n){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(Number(n||0))}function badge(s){let c=['Converted','Won','Completed','Active'].includes(s)?'green':['Follow-up','Negotiation','Paused'].includes(s)?'amber':['Lost','Not Interested'].includes(s)?'red':s==='Contacted'?'blue':'';return '<span class="badge '+c+'">'+esc(s)+'</span>'}function table(head,rows){return rows.length?'<div class="tablewrap"><table class="table"><thead><tr>'+head.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+x+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>':'<div class="empty">No records yet.</div>'}
-async function login(){let e=$('email').value.trim(),p=$('password').value;if(!e||!p)return msg('Enter email and password.');let r=await db.auth.signInWithPassword({email:e,password:p});if(r.error)return msg(r.error.message);await start(r.data.user)}async function signup(){let e=$('email').value.trim(),p=$('password').value;if(!e||p.length<6)return msg('Enter an email and a password of at least 6 characters.');let r=await db.auth.signUp({email:e,password:p});if(r.error)return msg(r.error.message);if(!r.data.session)return msg('Account created. Check your email for confirmation, then sign in.',true);await start(r.data.user)}async function logout(){await db.auth.signOut();location.reload()}
-async function start(u){user=u;let r=await db.from('profiles').select('*').eq('id',u.id).maybeSingle();if(r.error)return msg(r.error.message);profile=r.data;if(!profile||!profile.organization_id){let name=prompt('Welcome! Enter your organization name:');if(!name)return msg('Organization is required.');let full=prompt('Enter your name:')||u.email.split('@')[0];let x=await db.rpc('create_organization',{org_name:name,user_name:full});if(x.error)return msg(x.error.message);profile=(await db.from('profiles').select('*').eq('id',u.id).single()).data}org=(await db.from('organizations').select('*').eq('id',profile.organization_id).single()).data;if(!org)return msg('Organization could not be loaded.');$('auth').classList.add('hidden');$('app').classList.remove('hidden');$('user').textContent=profile.full_name||u.email;$('org').textContent=org.name;if(profile.role==='admin')$('teamBtn').classList.remove('hidden');await load();go('dashboard')}
-async function load(){for(let t of Object.keys(D)){let r=await db.from(t).select('*').eq('organization_id',org.id).order('created_at',{ascending:false});if(r.error){toast(t+': '+r.error.message);D[t]=[]}else D[t]=r.data||[]}if(profile.role==='admin'){let r=await db.from('profiles').select('*').eq('organization_id',org.id);members=r.data||[]}renderAll()}
-function renderAll(){renderDash();renderLeads();renderContacts();renderAccounts();renderDeals();renderActivities();renderCampaigns();renderReports();renderTeam()}function renderDash(){let l=D.leads,d=D.deals;let won=d.filter(x=>x.stage==='Won');$('kpis').innerHTML=[['Total Leads',l.length],['New Leads',l.filter(x=>x.status==='New').length],['Follow-ups',l.filter(x=>x.status==='Follow-up').length],['Open Deals',d.filter(x=>!['Won','Lost'].includes(x.stage)).length],['Won Revenue',money(won.reduce((a,x)=>a+Number(x.amount||0),0))]].map(x=>'<div class="card"><div class="label">'+x[0]+'</div><div class="value">'+x[1]+'</div></div>').join('');let stages=['Qualification','Needs Analysis','Proposal','Negotiation','Won','Lost'];$('pipeSummary').innerHTML=stages.map(s=>{let n=d.filter(x=>x.stage===s).length;return '<div><b>'+s+'</b><span style="float:right" class="muted">'+n+'</span><div class="bar"><i style="width:'+Math.min(100,n*18+3)+'%"></i></div></div>'}).join('');let src={};l.forEach(x=>src[x.source||'Unknown']=(src[x.source||'Unknown']||0)+1);let mx=Math.max(1,...Object.values(src));$('sourceSummary').innerHTML=Object.entries(src).map(([k,v])=>'<div><b>'+esc(k)+'</b><span style="float:right" class="muted">'+v+'</span><div class="bar"><i style="width:'+(v/mx*100)+'%"></i></div></div>').join('')||'<div class="empty">No lead data</div>';$('recent').innerHTML=table(['Lead','Company','Status','Created'],l.slice(0,8).map(x=>['<b>'+esc(x.name)+'</b>',esc(x.company),badge(x.status),new Date(x.created_at).toLocaleDateString()]))}
-function renderLeads(){let q=($('search')?.value||'').toLowerCase(),f=$('filter')?.value||'All';let a=D.leads.filter(x=>(f==='All'||x.status===f)&&[x.name,x.company,x.phone,x.email].some(v=>String(v||'').toLowerCase().includes(q)));$('leadTable').innerHTML=table(['Lead','Company','Phone','Source','Status','Actions'],a.map(x=>['<b>'+esc(x.name)+'</b><div class="muted">'+esc(x.email)+'</div>',esc(x.company),esc(x.phone),esc(x.source),badge(x.status),'<button class="btn danger" onclick="removeRow(\'leads\',\''+x.id+'\')">Delete</button>']))}
-function renderContacts(){$('contactsTable').innerHTML=table(['Name','Account','Phone','Email','Actions'],D.contacts.map(x=>[esc((x.first_name||'')+' '+(x.last_name||'')),esc((D.accounts.find(a=>a.id===x.account_id)||{}).name||'—'),esc(x.phone),esc(x.email),'<button class="btn danger" onclick="removeRow(\'contacts\',\''+x.id+'\')">Delete</button>']))}function renderAccounts(){$('accountsTable').innerHTML=table(['Account','Industry','Phone','Email','City','Actions'],D.accounts.map(x=>['<b>'+esc(x.name)+'</b>',esc(x.industry),esc(x.phone),esc(x.email),esc(x.city),'<button class="btn danger" onclick="removeRow(\'accounts\',\''+x.id+'\')">Delete</button>']))}
-function renderDeals(){let stages=['Qualification','Needs Analysis','Proposal','Negotiation','Won','Lost'];$('dealPipe').innerHTML=stages.map(s=>'<div class="stage"><h4>'+s+' <span class="muted">'+D.deals.filter(x=>x.stage===s).length+'</span></h4>'+D.deals.filter(x=>x.stage===s).map(x=>'<div class="deal"><b>'+esc(x.name)+'</b><div class="money">'+money(x.amount)+'</div><div class="muted">'+x.probability+'% probability</div><select class="field" onchange="moveDeal(\''+x.id+'\',this.value)">'+stages.map(v=>'<option '+(v===s?'selected':'')+'>'+v+'</option>').join('')+'</select></div>').join('')+'</div>').join('')}
-function renderActivities(){$('activitiesTable').innerHTML=table(['Subject','Type','Due','Status','Actions'],D.activities.map(x=>[esc(x.subject),badge(x.type),x.due_at?new Date(x.due_at).toLocaleString():'—',x.completed?badge('Completed'):badge('New'),'<button class="btn" onclick="toggleActivity(\''+x.id+'\','+(!x.completed)+')">'+(x.completed?'Reopen':'Complete')+'</button> <button class="btn danger" onclick="removeRow(\'activities\',\''+x.id+'\')">Delete</button>']))}function renderCampaigns(){$('campaignsTable').innerHTML=table(['Campaign','Type','Status','Budget','Start','End','Actions'],D.campaigns.map(x=>[esc(x.name),esc(x.type),badge(x.status),money(x.budget),esc(x.start_date||'—'),esc(x.end_date||'—'),'<button class="btn danger" onclick="removeRow(\'campaigns\',\''+x.id+'\')">Delete</button>']))}
-function renderReports(){let l=D.leads,d=D.deals;let won=d.filter(x=>x.stage==='Won');$('reportKpis').innerHTML=[['Conversion Rate',l.length?((l.filter(x=>x.status==='Converted').length/l.length)*100).toFixed(1)+'%':'0%'],['Pipeline Value',money(d.filter(x=>!['Won','Lost'].includes(x.stage)).reduce((a,x)=>a+Number(x.amount||0),0))],['Won Revenue',money(won.reduce((a,x)=>a+Number(x.amount||0),0))],['Total Accounts',D.accounts.length],['Total Contacts',D.contacts.length]].map(x=>'<div class="card"><div class="label">'+x[0]+'</div><div class="value">'+x[1]+'</div></div>').join('');let sts=['New','Contacted','Follow-up','Converted','Not Interested','Lost'];$('statusReport').innerHTML=sts.map(s=>'<div><b>'+s+'</b><span style="float:right">'+l.filter(x=>x.status===s).length+'</span><div class="bar"><i style="width:'+(l.length?l.filter(x=>x.status===s).length/l.length*100:0)+'%"></i></div></div>').join('');$('dealReport').innerHTML=['Qualification','Needs Analysis','Proposal','Negotiation','Won','Lost'].map(s=>'<div><b>'+s+'</b><span style="float:right">'+d.filter(x=>x.stage===s).length+'</span><div class="bar"><i style="width:'+(d.length?d.filter(x=>x.stage===s).length/d.length*100:0)+'%"></i></div></div>').join('')}
-function renderTeam(){if(profile?.role!=='admin')return;$('joinCode').textContent=org.join_code;$('teamTable').innerHTML=table(['Name','Role','Joined'],members.map(x=>[esc(x.full_name||'—'),badge(x.role),new Date(x.created_at).toLocaleDateString()]))}
-function go(p){document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===p));document.querySelectorAll('.nav button[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===p));$('title').textContent=p.charAt(0).toUpperCase()+p.slice(1);if(p==='dashboard')renderDash()}
-document.querySelectorAll('.nav button[data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));
-function openForm(type){$('modalTitle').textContent='New '+type.charAt(0).toUpperCase()+type.slice(1);let h='<form id="f" class="form">';if(type==='lead')h+='<input id="name" class="field" required placeholder="Lead name *"><input id="company" class="field" placeholder="Company"><input id="phone" class="field" placeholder="Phone"><input id="email2" class="field" type="email" placeholder="Email"><input id="city" class="field" placeholder="City"><input id="source" class="field" value="Website" placeholder="Source"><input id="service" class="field" placeholder="Product / Service"><select id="status" class="field"><option>New</option><option>Contacted</option><option>Follow-up</option><option>Converted</option><option>Not Interested</option><option>Lost</option></select><input id="followup" class="field" type="date"><textarea id="notes" class="field full" rows="3" placeholder="Notes"></textarea>';if(type==='account')h+='<input id="name" class="field" required placeholder="Account name *"><input id="industry" class="field" placeholder="Industry"><input id="phone" class="field" placeholder="Phone"><input id="email2" class="field" placeholder="Email"><input id="city" class="field" placeholder="City"><input id="website" class="field" placeholder="Website">';if(type==='contact')h+='<input id="first" class="field" required placeholder="First name *"><input id="last" class="field" placeholder="Last name"><select id="account" class="field"><option value="">No account</option>'+D.accounts.map(a=>'<option value="'+a.id+'">'+esc(a.name)+'</option>').join('')+'</select><input id="designation" class="field" placeholder="Designation"><input id="phone" class="field" placeholder="Phone"><input id="email2" class="field" placeholder="Email"><input id="city" class="field" placeholder="City">';if(type==='deal')h+='<input id="name" class="field" required placeholder="Deal name *"><input id="amount" class="field" type="number" placeholder="Amount"><select id="account" class="field"><option value="">No account</option>'+D.accounts.map(a=>'<option value="'+a.id+'">'+esc(a.name)+'</option>').join('')+'</select><select id="stage" class="field"><option>Qualification</option><option>Needs Analysis</option><option>Proposal</option><option>Negotiation</option><option>Won</option><option>Lost</option></select><input id="prob" class="field" type="number" value="10" min="0" max="100" placeholder="Probability %"><input id="close" class="field" type="date"><textarea id="notes" class="field full" rows="3" placeholder="Notes"></textarea>';if(type==='activity')h+='<input id="subject" class="field" required placeholder="Subject *"><select id="atype" class="field"><option>Task</option><option>Call</option><option>Meeting</option><option>Email</option><option>Note</option></select><input id="due" class="field" type="datetime-local"><textarea id="desc" class="field full" rows="3" placeholder="Description"></textarea>';if(type==='campaign')h+='<input id="name" class="field" required placeholder="Campaign name *"><input id="ctype" class="field" value="Digital" placeholder="Type"><select id="cstatus" class="field"><option>Planning</option><option>Active</option><option>Paused</option><option>Completed</option></select><input id="budget" class="field" type="number" placeholder="Budget"><input id="start" class="field" type="date"><input id="end" class="field" type="date"><textarea id="notes" class="field full" rows="3" placeholder="Notes"></textarea>';h+='<div class="actions full"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Save</button></div></form>';$('modalBody').innerHTML=h;$('modal').classList.add('open');$('f').onsubmit=e=>save(type,e)}
-async function save(type,e){e.preventDefault();let data={organization_id:org.id,created_by:user.id};if(type==='lead')Object.assign(data,{name:$('name').value,company:$('company').value,phone:$('phone').value,email:$('email2').value,city:$('city').value,source:$('source').value,service:$('service').value,status:$('status').value,followup:$('followup').value||null,notes:$('notes').value});if(type==='account')Object.assign(data,{name:$('name').value,industry:$('industry').value,phone:$('phone').value,email:$('email2').value,city:$('city').value,website:$('website').value,owner_id:user.id});if(type==='contact')Object.assign(data,{first_name:$('first').value,last_name:$('last').value,account_id:$('account').value||null,designation:$('designation').value,phone:$('phone').value,email:$('email2').value,city:$('city').value,owner_id:user.id});if(type==='deal')Object.assign(data,{name:$('name').value,amount:Number($('amount').value||0),account_id:$('account').value||null,stage:$('stage').value,probability:Number($('prob').value||0),expected_close:$('close').value||null,notes:$('notes').value,owner_id:user.id});if(type==='activity')Object.assign(data,{subject:$('subject').value,type:$('atype').value,due_at:$('due').value||null,description:$('desc').value,assigned_to:user.id});if(type==='campaign')Object.assign(data,{name:$('name').value,type:$('ctype').value,status:$('cstatus').value,budget:Number($('budget').value||0),start_date:$('start').value||null,end_date:$('end').value||null,notes:$('notes').value});let tableName=type==='lead'?'leads':type==='contact'?'contacts':type==='account'?'accounts':type==='deal'?'deals':type==='activity'?'activities':'campaigns';let r=await db.from(tableName).insert(data);if(r.error)return alert(r.error.message);closeModal();await load();toast('Saved successfully')}
-async function removeRow(t,id){if(!confirm('Delete this record?'))return;let r=await db.from(t).delete().eq('id',id).eq('organization_id',org.id);if(r.error)return alert(r.error.message);await load();toast('Deleted')}
-async function moveDeal(id,stage){let r=await db.from('deals').update({stage}).eq('id',id).eq('organization_id',org.id);if(r.error)return alert(r.error.message);await load()}async function toggleActivity(id,done){let r=await db.from('activities').update({completed:done}).eq('id',id).eq('organization_id',org.id);if(r.error)return alert(r.error.message);await load()}
-function closeModal(){$('modal').classList.remove('open')}function goAdd(){openForm('lead')}
-$('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});db.auth.getSession().then(({data})=>{if(data.session)start(data.session.user)});db.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT')location.reload()});
-</script></body></html>
+
+"use strict";
+
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const supabaseClient =
+  supabase.createClient(
+    window.SUPABASE_CONFIG.url,
+    window.SUPABASE_CONFIG.key
+  );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentUser = null;
+let currentProfile = null;
+let currentOrganization = null;
+
+const records = {
+
+  leads: [],
+  contacts: [],
+  accounts: [],
+  deals: [],
+  activities: [],
+  campaigns: []
+
+};
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function $(id) {
+
+  return document.getElementById(id);
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+function money(value) {
+
+  return new Intl.NumberFormat(
+    "en-IN",
+    {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0
+    }
+  ).format(Number(value || 0));
+
+}
+
+
+function showAuthMessage(message, success = false) {
+
+  $("authMessage").innerHTML =
+    '<div class="message ' +
+    (success ? "success" : "") +
+    '">' +
+    escapeHtml(message) +
+    "</div>";
+
+}
+
+
+function clearAuthMessage() {
+
+  $("authMessage").innerHTML = "";
+
+}
+
+
+function showToast(message) {
+
+  alert(message);
+
+}
+
+
+function badge(status) {
+
+  const s = String(status || "");
+
+  let cls = "";
+
+  if (
+    s === "Converted" ||
+    s === "Won" ||
+    s === "Completed"
+  ) {
+    cls = "green";
+  }
+
+  if (
+    s === "Lost" ||
+    s === "Not Interested"
+  ) {
+    cls = "red";
+  }
+
+  if (
+    s === "Follow-up" ||
+    s === "Negotiation"
+  ) {
+    cls = "yellow";
+  }
+
+  if (s === "Contacted") {
+    cls = "blue";
+  }
+
+  return (
+    '<span class="badge ' +
+    cls +
+    '">' +
+    escapeHtml(s || "New") +
+    "</span>"
+  );
+
+}
+
+
+/* =========================================================
+   AUTHENTICATION
+========================================================= */
+
+async function signup() {
+
+  clearAuthMessage();
+
+  const email =
+    $("email").value.trim();
+
+  const password =
+    $("password").value;
+
+  if (!email) {
+
+    showAuthMessage(
+      "Please enter your email address."
+    );
+
+    return;
+
+  }
+
+  if (password.length < 6) {
+
+    showAuthMessage(
+      "Password must contain at least 6 characters."
+    );
+
+    return;
+
+  }
+
+  $("signupButton").disabled = true;
+
+  try {
+
+    const result =
+      await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+      });
+
+    if (result.error) {
+
+      showAuthMessage(
+        result.error.message
+      );
+
+      return;
+
+    }
+
+    /*
+      Supabase may require email confirmation.
+    */
+
+    if (!result.data.session) {
+
+      showAuthMessage(
+        "Account created successfully. Please check your email for confirmation, then sign in.",
+        true
+      );
+
+      return;
+
+    }
+
+    await initializeApplication(
+      result.data.user
+    );
+
+  } catch (error) {
+
+    showAuthMessage(
+      error.message || "Unable to create account."
+    );
+
+  } finally {
+
+    $("signupButton").disabled = false;
+
+  }
+
+}
+
+
+async function login() {
+
+  clearAuthMessage();
+
+  const email =
+    $("email").value.trim();
+
+  const password =
+    $("password").value;
+
+  if (!email || !password) {
+
+    showAuthMessage(
+      "Please enter your email and password."
+    );
+
+    return;
+
+  }
+
+  $("loginButton").disabled = true;
+
+  try {
+
+    const result =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+    if (result.error) {
+
+      showAuthMessage(
+        result.error.message
+      );
+
+      return;
+
+    }
+
+    await initializeApplication(
+      result.data.user
+    );
+
+  } catch (error) {
+
+    showAuthMessage(
+      error.message || "Unable to sign in."
+    );
+
+  } finally {
+
+    $("loginButton").disabled = false;
+
+  }
+
+}
+
+
+async function logout() {
+
+  await supabaseClient.auth.signOut();
+
+  window.location.reload();
+
+}
+
+
+/* =========================================================
+   APPLICATION INITIALIZATION
+========================================================= */
+
+async function initializeApplication(user) {
+
+  currentUser = user;
+
+  /*
+    Load profile.
+  */
+
+  let profileResult =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .maybeSingle();
+
+  if (profileResult.error) {
+
+    showAuthMessage(
+      profileResult.error.message
+    );
+
+    return;
+
+  }
+
+  currentProfile =
+    profileResult.data;
+
+
+  /*
+    If profile doesn't exist,
+    create organization.
+  */
+
+  if (
+    !currentProfile ||
+    !currentProfile.organization_id
+  ) {
+
+    const organizationName =
+      window.prompt(
+        "Welcome to KIP CRM Pro.\n\nEnter your organization/company name:"
+      );
+
+    if (!organizationName) {
+
+      showAuthMessage(
+        "Organization name is required."
+      );
+
+      return;
+
+    }
+
+    const fullName =
+      window.prompt(
+        "Enter your full name:"
+      ) ||
+      user.email.split("@")[0];
+
+
+    /*
+      Uses the RPC created in the Supabase schema.
+    */
+
+    const rpcResult =
+      await supabaseClient.rpc(
+        "create_organization",
+        {
+          org_name: organizationName,
+          user_name: fullName
+        }
+      );
+
+    if (rpcResult.error) {
+
+      showAuthMessage(
+        "Organization setup failed: " +
+        rpcResult.error.message
+      );
+
+      return;
+
+    }
+
+
+    /*
+      Reload profile.
+    */
+
+    profileResult =
+      await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
+
+    if (profileResult.error) {
+
+      showAuthMessage(
+        profileResult.error.message
+      );
+
+      return;
+
+    }
+
+    currentProfile =
+      profileResult.data;
+
+  }
+
+
+  if (
+    !currentProfile ||
+    !currentProfile.organization_id
+  ) {
+
+    showAuthMessage(
+      "Your organization could not be created. Please contact the administrator."
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Load organization.
+  */
+
+  const organizationResult =
+    await supabaseClient
+      .from("organizations")
+      .select("*")
+      .eq(
+        "id",
+        currentProfile.organization_id
+      )
+      .single();
+
+
+  if (organizationResult.error) {
+
+    showAuthMessage(
+      organizationResult.error.message
+    );
+
+    return;
+
+  }
+
+
+  currentOrganization =
+    organizationResult.data;
+
+
+  /*
+    Show application.
+  */
+
+  $("authScreen").classList.add(
+    "hidden"
+  );
+
+  $("application").classList.remove(
+    "hidden"
+  );
+
+
+  $("organizationName").textContent =
+    currentOrganization.name;
+
+
+  $("userName").textContent =
+    currentProfile.full_name ||
+    user.email;
+
+
+  /*
+    Admin gets Team.
+  */
+
+  if (
+    currentProfile.role === "admin"
+  ) {
+
+    $("teamNavigation")
+      .classList.remove("hidden");
+
+  }
+
+
+  await loadAllRecords();
+
+  showPage("dashboard");
+
+}
+
+
+/* =========================================================
+   DATABASE
+========================================================= */
+
+async function loadAllRecords() {
+
+  const tables =
+    Object.keys(records);
+
+  for (
+    const tableName of tables
+  ) {
+
+    const result =
+      await supabaseClient
+        .from(tableName)
+        .select("*")
+        .eq(
+          "organization_id",
+          currentOrganization.id
+        )
+        .order(
+          "created_at",
+          {
+            ascending: false
+          }
+        );
+
+    if (result.error) {
+
+      console.error(
+        tableName,
+        result.error
+      );
+
+      records[tableName] = [];
+
+    } else {
+
+      records[tableName] =
+        result.data || [];
+
+    }
+
+  }
+
+  renderEverything();
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showPage(pageName) {
+
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      section =>
+        section.classList.add("hidden")
+    );
+
+
+  const page =
+    $("page-" + pageName);
+
+  if (page) {
+
+    page.classList.remove("hidden");
+
+  }
+
+
+  document
+    .querySelectorAll(".nav-button[data-page]")
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.page === pageName
+      );
+
+    });
+
+
+  const titles = {
+
+    dashboard: "Dashboard",
+    leads: "Leads",
+    contacts: "Contacts",
+    accounts: "Accounts",
+    deals: "Deals",
+    activities: "Activities",
+    campaigns: "Campaigns",
+    reports: "Reports & Analytics",
+    team: "Team"
+
+  };
+
+
+  $("pageTitle").textContent =
+    titles[pageName] || pageName;
+
+}
+
+
+document
+  .querySelectorAll(
+    ".nav-button[data-page]"
+  )
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => showPage(
+        button.dataset.page
+      )
+    );
+
+  });
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function renderDashboard() {
+
+  const leads =
+    records.leads;
+
+  const deals =
+    records.deals;
+
+  const contacts =
+    records.contacts;
+
+  const accounts =
+    records.accounts;
+
+
+  const pipelineValue =
+    deals.reduce(
+      (total, deal) =>
+        total +
+        Number(
+          deal.amount || 0
+        ),
+      0
+    );
+
+
+  const wonDeals =
+    deals.filter(
+      deal =>
+        String(
+          deal.stage || ""
+        ).toLowerCase() === "won"
+    );
+
+
+  const wonRevenue =
+    wonDeals.reduce(
+      (total, deal) =>
+        total +
+        Number(
+          deal.amount || 0
+        ),
+      0
+    );
+
+
+  $("dashboardCards").innerHTML = `
+
+    <div class="card">
+      <div class="card-label">
+        Total Leads
+      </div>
+      <div class="card-value">
+        ${leads.length}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">
+        Contacts
+      </div>
+      <div class="card-value">
+        ${contacts.length}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">
+        Accounts
+      </div>
+      <div class="card-value">
+        ${accounts.length}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">
+        Pipeline Value
+      </div>
+      <div class="card-value">
+        ${money(pipelineValue)}
+      </div>
+    </div>
+
+  `;
+
+
+  const recent =
+    leads.slice(0, 10);
+
+
+  if (!recent.length) {
+
+    $("recentLeads").innerHTML =
+      '<div class="empty">No leads yet.</div>';
+
+  } else {
+
+    $("recentLeads").innerHTML =
+      `
+      <div class="table-container">
+        <table>
+
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Company</th>
+              <th>Email</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${recent.map(
+              lead => `
+
+              <tr>
+
+                <td>
+                  ${escapeHtml(
+                    lead.name ||
+                    lead.full_name ||
+                    "-"
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHtml(
+                    lead.company ||
+                    "-"
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHtml(
+                    lead.email ||
+                    "-"
+                  )}
+                </td>
+
+                <td>
+                  ${badge(
+                    lead.status ||
+                    "New"
+                  )}
+                </td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+      </div>
+      `;
+
+  }
+
+}
+
+
+/* =========================================================
+   LEADS
+========================================================= */
+
+function renderLeads() {
+
+  const search =
+    (
+      $("leadSearch")?.value ||
+      ""
+    )
+    .toLowerCase();
+
+
+  let leads =
+    records.leads.filter(
+      lead =>
+        JSON.stringify(
+          lead
+        )
+        .toLowerCase()
+        .includes(search)
+    );
+
+
+  if (!leads.length) {
+
+    $("leadsTable").innerHTML =
+      '<div class="empty">No leads found.</div>';
+
+    return;
+
+  }
+
+
+  $("leadsTable").innerHTML =
+    `
+    <div class="table-container">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Created</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${leads.map(
+            lead => `
+
+            <tr>
+
+              <td>
+                <strong>
+                  ${escapeHtml(
+                    lead.name ||
+                    lead.full_name ||
+                    "-"
+                  )}
+                </strong>
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  lead.company ||
+                  "-"
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  lead.email ||
+                  "-"
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  lead.phone ||
+                  "-"
+                )}
+              </td>
+
+              <td>
+                ${badge(
+                  lead.status ||
+                  "New"
+                )}
+              </td>
+
+              <td>
+                ${lead.created_at
+                  ? new Date(
+                      lead.created_at
+                    ).toLocaleDateString()
+                  : "-"
+                }
+              </td>
+
+            </tr>
+
+          `).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+    `;
+
+}
+
+
+/* =========================================================
+   CONTACTS
+========================================================= */
+
+function renderContacts() {
+
+  const data =
+    records.contacts;
+
+
+  $("contactsTable").innerHTML =
+    tableHTML(
+
+      [
+        "Name",
+        "Email",
+        "Phone"
+      ],
+
+      data.map(
+        contact => [
+
+          escapeHtml(
+            contact.name ||
+            contact.full_name ||
+            "-"
+          ),
+
+          escapeHtml(
+            contact.email ||
+            "-"
+          ),
+
+          escapeHtml(
+            contact.phone ||
+            "-"
+          )
+
+        ]
+      )
+
+    );
+
+}
+
+
+/* =========================================================
+   ACCOUNTS
+========================================================= */
+
+function renderAccounts() {
+
+  $("accountsTable").innerHTML =
+    tableHTML(
+
+      [
+        "Account",
+        "Industry",
+        "Phone"
+      ],
+
+      records.accounts.map(
+        account => [
+
+          escapeHtml(
+            account.name ||
+            "-"
+          ),
+
+          escapeHtml(
+            account.industry ||
+            "-"
+          ),
+
+          escapeHtml(
+            account.phone ||
+            "-"
+          )
+
+        ]
+      )
+
+    );
+
+}
+
+
+/* =========================================================
+   DEALS
+========================================================= */
+
+function renderDeals() {
+
+  const stages = [
+    "New",
+    "Qualification",
+    "Proposal",
+    "Negotiation",
+    "Won",
+    "Lost"
+  ];
+
+
+  $("dealPipeline").innerHTML =
+    stages.map(
+      stage => {
+
+        const deals =
+          records.deals.filter(
+            deal =>
+              String(
+                deal.stage ||
+                "New"
+              ).toLowerCase() ===
+              stage.toLowerCase()
+          );
+
+
+        return `
+
+          <div class="pipeline-stage">
+
+            <strong>
+              ${stage}
+            </strong>
+
+            <div class="muted">
+              ${deals.length} deal(s)
+            </div>
+
+            ${deals.map(
+              deal => `
+
+              <div class="deal-card">
+
+                <strong>
+                  ${escapeHtml(
+                    deal.title ||
+                    deal.name ||
+                    "Untitled"
+                  )}
+                </strong>
+
+                <div class="money">
+                  ${money(
+                    deal.amount
+                  )}
+                </div>
+
+              </div>
+
+            `).join("")}
+
+          </div>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* =========================================================
+   ACTIVITIES
+========================================================= */
+
+function renderActivities() {
+
+  $("activitiesTable").innerHTML =
+    tableHTML(
+
+      [
+        "Subject",
+        "Type",
+        "Status",
+        "Due Date"
+      ],
+
+      records.activities.map(
+        activity => [
+
+          escapeHtml(
+            activity.subject ||
+            "-"
+          ),
+
+          escapeHtml(
+            activity.type ||
+            "-"
+          ),
+
+          badge(
+            activity.status ||
+            "Pending"
+          ),
+
+          escapeHtml(
+            activity.due_date ||
+            "-"
+          )
+
+        ]
+      )
+
+    );
+
+}
+
+
+/* =========================================================
+   CAMPAIGNS
+========================================================= */
+
+function renderCampaigns() {
+
+  $("campaignsTable").innerHTML =
+    tableHTML(
+
+      [
+        "Campaign",
+        "Status",
+        "Budget"
+      ],
+
+      records.campaigns.map(
+        campaign => [
+
+          escapeHtml(
+            campaign.name ||
+            "-"
+          ),
+
+          badge(
+            campaign.status ||
+            "Draft"
+          ),
+
+          money(
+            campaign.budget
+          )
+
+        ]
+      )
+
+    );
+
+}
+
+
+/* =========================================================
+   REPORTS
+========================================================= */
+
+function renderReports() {
+
+  const leads =
+    records.leads;
+
+  const deals =
+    records.deals;
+
+
+  const converted =
+    leads.filter(
+      lead =>
+        String(
+          lead.status ||
+          ""
+        ).toLowerCase() ===
+        "converted"
+    ).length;
+
+
+  const revenue =
+    deals
+      .filter(
+        deal =>
+          String(
+            deal.stage ||
+            ""
+          ).toLowerCase() ===
+          "won"
+      )
+      .reduce(
+        (sum, deal) =>
+          sum +
+          Number(
+            deal.amount || 0
+          ),
+        0
+      );
+
+
+  $("reportCards").innerHTML = `
+
+    <div class="card">
+      <div class="card-label">
+        Total Leads
+      </div>
+      <div class="card-value">
+        ${leads.length}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">
+        Converted Leads
+      </div>
+      <div class="card-value">
+        ${converted}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">
+        Conversion Rate
+      </div>
+      <div class="card-value">
+        ${
+          leads.length
+            ? Math.round(
+                converted /
+                leads.length *
+                100
+              )
+            : 0
+        }%
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">
+        Won Revenue
+      </div>
+      <div class="card-value">
+        ${money(revenue)}
+      </div>
+    </div>
+
+  `;
+
+
+  const statuses = {};
+
+  leads.forEach(
+    lead => {
+
+      const status =
+        lead.status ||
+        "New";
+
+      statuses[status] =
+        (statuses[status] || 0) +
+        1;
+
+    }
+  );
+
+
+  $("leadStatusReport").innerHTML =
+    Object.entries(
+      statuses
+    )
+    .map(
+      ([status, count]) => `
+
+        <div style="margin:12px 0">
+
+          <div style="
+            display:flex;
+            justify-content:space-between;
+          ">
+
+            <span>
+              ${escapeHtml(status)}
+            </span>
+
+            <strong>
+              ${count}
+            </strong>
+
+          </div>
+
+          <div style="
+            height:7px;
+            background:#e5e7eb;
+            border-radius:10px;
+            overflow:hidden;
+          ">
+
+            <div style="
+              width:${
+                leads.length
+                  ? count /
+                    leads.length *
+                    100
+                  : 0
+              }%;
+              height:100%;
+              background:#2563eb;
+            "></div>
+
+          </div>
+
+        </div>
+
+      `
+    )
+    .join("");
+
+}
+
+
+/* =========================================================
+   TEAM
+========================================================= */
+
+async function renderTeam() {
+
+  if (
+    !currentProfile ||
+    currentProfile.role !== "admin"
+  ) {
+
+    return;
+
+  }
+
+
+  const result =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq(
+        "organization_id",
+        currentOrganization.id
+      );
+
+
+  if (result.error) {
+
+    $("teamTable").innerHTML =
+      '<div class="empty">' +
+      escapeHtml(
+        result.error.message
+      ) +
+      "</div>";
+
+    return;
+
+  }
+
+
+  const members =
+    result.data || [];
+
+
+  $("teamTable").innerHTML =
+    tableHTML(
+
+      [
+        "Name",
+        "Role",
+        "Email"
+      ],
+
+      members.map(
+        member => [
+
+          escapeHtml(
+            member.full_name ||
+            "-"
+          ),
+
+          badge(
+            member.role ||
+            "member"
+          ),
+
+          escapeHtml(
+            member.email ||
+            "-"
+          )
+
+        ]
+      )
+
+    );
+
+}
+
+
+/* =========================================================
+   TABLE HELPER
+========================================================= */
+
+function tableHTML(
+  headers,
+  rows
+) {
+
+  if (!rows.length) {
+
+    return `
+      <div class="empty">
+        No records yet.
+      </div>
+    `;
+
+  }
+
+
+  return `
+
+    <div class="table-container">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            ${headers.map(
+              header =>
+                `<th>${header}</th>`
+            ).join("")}
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${rows.map(
+            row => `
+
+            <tr>
+
+              ${row.map(
+                cell =>
+                  `<td>${cell}</td>`
+              ).join("")}
+
+            </tr>
+
+          `).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER ALL
+========================================================= */
+
+function renderEverything() {
+
+  renderDashboard();
+
+  renderLeads();
+
+  renderContacts();
+
+  renderAccounts();
+
+  renderDeals();
+
+  renderActivities();
+
+  renderCampaigns();
+
+  renderReports();
+
+  renderTeam();
+
+}
+
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+const formDefinitions = {
+
+  lead: {
+
+    title: "New Lead",
+
+    table: "leads",
+
+    fields: [
+
+      {
+        name: "name",
+        label: "Full Name",
+        required: true
+      },
+
+      {
+        name: "email",
+        label: "Email"
+      },
+
+      {
+        name: "phone",
+        label: "Phone"
+      },
+
+      {
+        name: "company",
+        label: "Company"
+      },
+
+      {
+        name: "source",
+        label: "Lead Source"
+      },
+
+      {
+        name: "status",
+        label: "Status",
+        type: "select",
+        options: [
+          "New",
+          "Contacted",
+          "Follow-up",
+          "Converted",
+          "Not Interested",
+          "Lost"
+        ]
+      },
+
+      {
+        name: "notes",
+        label: "Notes",
+        type: "textarea",
+        full: true
+      }
+
+    ]
+
+  },
+
+
+  contact: {
+
+    title: "New Contact",
+
+    table: "contacts",
+
+    fields: [
+
+      {
+        name: "name",
+        label: "Full Name",
+        required: true
+      },
+
+      {
+        name: "email",
+        label: "Email"
+      },
+
+      {
+        name: "phone",
+        label: "Phone"
+      },
+
+      {
+        name: "designation",
+        label: "Designation"
+      }
+
+    ]
+
+  },
+
+
+  account: {
+
+    title: "New Account",
+
+    table: "accounts",
+
+    fields: [
+
+      {
+        name: "name",
+        label: "Account Name",
+        required: true
+      },
+
+      {
+        name: "industry",
+        label: "Industry"
+      },
+
+      {
+        name: "phone",
+        label: "Phone"
+      },
+
+      {
+        name: "website",
+        label: "Website"
+      }
+
+    ]
+
+  },
+
+
+  deal: {
+
+    title: "New Deal",
+
+    table: "deals",
+
+    fields: [
+
+      {
+        name: "title",
+        label: "Deal Title",
+        required: true
+      },
+
+      {
+        name: "amount",
+        label: "Amount",
+        type: "number"
+      },
+
+      {
+        name: "stage",
+        label: "Stage",
+        type: "select",
+        options: [
+          "New",
+          "Qualification",
+          "Proposal",
+          "Negotiation",
+          "Won",
+          "Lost"
+        ]
+      },
+
+      {
+        name: "probability",
+        label: "Probability (%)",
+        type: "number"
+      },
+
+      {
+        name: "expected_close",
+        label: "Expected Close",
+        type: "date"
+      }
+
+    ]
+
+  },
+
+
+  activity: {
+
+    title: "New Activity",
+
+    table: "activities",
+
+    fields: [
+
+      {
+        name: "subject",
+        label: "Subject",
+        required: true
+      },
+
+      {
+        name: "type",
+        label: "Type",
+        type: "select",
+        options: [
+          "Call",
+          "Meeting",
+          "Task",
+          "Follow-up"
+        ]
+      },
+
+      {
+        name: "status",
+        label: "Status",
+        type: "select",
+        options: [
+          "Pending",
+          "Completed",
+          "Cancelled"
+        ]
+      },
+
+      {
+        name: "due_date",
+        label: "Due Date",
+        type: "date"
+      },
+
+      {
+        name: "description",
+        label: "Description",
+        type: "textarea",
+        full: true
+      }
+
+    ]
+
+  },
+
+
+  campaign: {
+
+    title: "New Campaign",
+
+    table: "campaigns",
+
+    fields: [
+
+      {
+        name: "name",
+        label: "Campaign Name",
+        required: true
+      },
+
+      {
+        name: "status",
+        label: "Status",
+        type: "select",
+        options: [
+          "Draft",
+          "Active",
+          "Paused",
+          "Completed"
+        ]
+      },
+
+      {
+        name: "budget",
+        label: "Budget",
+        type: "number"
+      },
+
+      {
+        name: "description",
+        label: "Description",
+        type: "textarea",
+        full: true
+      }
+
+    ]
+
+  }
+
+};
+
+
+function openForm(type) {
+
+  const definition =
+    formDefinitions[type];
+
+
+  if (!definition) {
+
+    return;
+
+  }
+
+
+  $("modalTitle").textContent =
+    definition.title;
+
+
+  $("modalBody").innerHTML =
+    `
+    <div class="form-grid">
+
+      ${definition.fields.map(
+        field => {
+
+          let element = "";
+
+          if (
+            field.type ===
+            "select"
+          ) {
+
+            element = `
+
+              <select
+                id="form-${field.name}"
+                class="input"
+              >
+
+                ${field.options.map(
+                  option =>
+                    `<option value="${escapeHtml(option)}">${escapeHtml(option)}</option>`
+                ).join("")}
+
+              </select>
+
+            `;
+
+          } else if (
+            field.type ===
+            "textarea"
+          ) {
+
+            element = `
+
+              <textarea
+                id="form-${field.name}"
+                class="input"
+                rows="4"
+                placeholder="${escapeHtml(field.label)}"
+              ></textarea>
+
+            `;
+
+          } else {
+
+            element = `
+
+              <input
+                id="form-${field.name}"
+                class="input"
+                type="${field.type || "text"}"
+                placeholder="${escapeHtml(field.label)}"
+              >
+
+            `;
+
+          }
+
+
+          return `
+
+            <div class="${
+              field.full
+                ? "form-full"
+                : ""
+            }">
+
+              <label>
+                <strong>
+                  ${escapeHtml(
+                    field.label
+                  )}
+                  ${
+                    field.required
+                      ? " *"
+                      : ""
+                  }
+                </strong>
+              </label>
+
+              ${element}
+
+            </div>
+
+          `;
+
+        }
+      ).join("")}
+
+    </div>
+    `;
+
+
+  $("modal").classList.add(
+    "open"
+  );
+
+
+  $("modalSave").onclick =
+    () =>
+      saveForm(
+        definition
+      );
+
+}
+
+
+function closeModal() {
+
+  $("modal").classList.remove(
+    "open"
+  );
+
+}
+
+
+async function saveForm(
+  definition
+) {
+
+  const data = {};
+
+
+  for (
+    const field
+    of definition.fields
+  ) {
+
+    const input =
+      $(
+        "form-" +
+        field.name
+      );
+
+
+    const value =
+      input.value.trim();
+
+
+    if (
+      field.required &&
+      !value
+    ) {
+
+      showToast(
+        field.label +
+        " is required."
+      );
+
+      input.focus();
+
+      return;
+
+    }
+
+
+    data[field.name] =
+      value || null;
+
+  }
+
+
+  data.organization_id =
+    currentOrganization.id;
+
+
+  /*
+    Add current user when supported.
+  */
+
+  if (
+    definition.table ===
+    "leads"
+  ) {
+
+    data.owner_id =
+      currentUser.id;
+
+  }
+
+
+  if (
+    definition.table ===
+    "contacts"
+  ) {
+
+    data.owner_id =
+      currentUser.id;
+
+  }
+
+
+  if (
+    definition.table ===
+    "accounts"
+  ) {
+
+    data.owner_id =
+      currentUser.id;
+
+  }
+
+
+  if (
+    definition.table ===
+    "deals"
+  ) {
+
+    data.owner_id =
+      currentUser.id;
+
+  }
+
+
+  const result =
+    await supabaseClient
+      .from(
+        definition.table
+      )
+      .insert(data);
+
+
+  if (result.error) {
+
+    showToast(
+      result.error.message
+    );
+
+    console.error(
+      result.error
+    );
+
+    return;
+
+  }
+
+
+  closeModal();
+
+  showToast(
+    definition.title +
+    " created successfully."
+  );
+
+
+  await loadAllRecords();
+
+}
+
+
+/* =========================================================
+   SESSION
+========================================================= */
+
+supabaseClient.auth
+  .getSession()
+  .then(
+    async result => {
+
+      if (
+        result.data &&
+        result.data.session
+      ) {
+
+        await initializeApplication(
+          result.data.session.user
+        );
+
+      }
+
+    }
+  );
+
+
+supabaseClient.auth.onAuthStateChange(
+  async (event, session) => {
+
+    if (
+      event ===
+      "SIGNED_OUT"
+    ) {
+
+      return;
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
