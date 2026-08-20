@@ -1,0 +1,33 @@
+name: Apply KIP Mobile CSS
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'assets/kip-mobile.css'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Inject mobile stylesheet into V4 CRM
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('kip-financial-crm-v4.html')
+          s=p.read_text(encoding='utf-8')
+          link='<link rel="stylesheet" href="assets/kip-mobile.css">'
+          if link not in s:
+              s=s.replace('</head>', link+'</head>', 1)
+              p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit mobile enhancement
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add kip-financial-crm-v4.html
+          git diff --cached --quiet || git commit -m 'Improve KIP Financial CRM V4 mobile experience'
+          git push
