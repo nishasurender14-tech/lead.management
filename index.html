@@ -79,4 +79,149 @@
   window.addEventListener('load', () => setTimeout(initializeMeetingAgent, 500));
 })();
 </script>
-</body></html>
+<script>
+/* KIP Financial CRM — Public Demo Mode */
+(function(){
+  const demoData={
+    contacts:[
+      {id:'c1',properties:{name:'Rajesh Kumar',email:'rajesh@example.com',phone:'+91 98765 43210',company:'Green Energy Pvt. Ltd.',owner:'KIP Team'}},
+      {id:'c2',properties:{name:'Amit Sharma',email:'amit@example.com',phone:'+91 98111 22334',company:'BioPower Industries',owner:'KIP Team'}},
+      {id:'c3',properties:{name:'Priya Mehta',email:'priya@example.com',phone:'+91 98990 11223',company:'EcoFuel Solutions',owner:'KIP Team'}}
+    ],
+    companies:[
+      {id:'co1',properties:{name:'Green Energy Pvt. Ltd.',industry:'Biomass',phone:'+91 11 4567 8900',website:'www.greenenergy.example',owner:'KIP Team'}},
+      {id:'co2',properties:{name:'BioPower Industries',industry:'Renewable Energy',phone:'+91 22 4567 1200',website:'www.biopower.example',owner:'KIP Team'}},
+      {id:'co3',properties:{name:'EcoFuel Solutions',industry:'CBG / Biomass',phone:'+91 20 4455 7788',website:'www.ecofuel.example',owner:'KIP Team'}}
+    ],
+    leads:[
+      {id:'l1',properties:{name:'NTPC Biomass Tender',status:'New',source:'Website',owner:'KIP Team'}},
+      {id:'l2',properties:{name:'CBG Project Enquiry',status:'Contacted',source:'Facebook',owner:'KIP Team'}},
+      {id:'l3',properties:{name:'Subsidy Viability Report',status:'Qualified',source:'Google',owner:'KIP Team'}},
+      {id:'l4',properties:{name:'Biomass Pellet Plant',status:'Proposal',source:'Webinar',owner:'KIP Team'}}
+    ],
+    deals:[
+      {id:'d1',properties:{name:'NTPC Tender Consultancy',stage:'Proposal',amount:125000,close_date:'2026-10-30',owner:'KIP Team'}},
+      {id:'d2',properties:{name:'Biomass Project Report',stage:'Negotiation',amount:275000,close_date:'2026-11-15',owner:'KIP Team'}},
+      {id:'d3',properties:{name:'CBG Subsidy Advisory',stage:'Closed Won',amount:180000,close_date:'2026-10-05',owner:'KIP Team'}}
+    ],
+    tickets:[
+      {id:'t1',properties:{name:'Tender Document Query',status:'Open',source:'WhatsApp',owner:'KIP Team'}},
+      {id:'t2',properties:{name:'Subsidy Eligibility',status:'In Progress',source:'Email',owner:'KIP Team'}}
+    ],
+    projects:[
+      {id:'p1',properties:{name:'Biomass Pellet Plant Project',status:'Active',source:'Consultancy',owner:'KIP Team'}},
+      {id:'p2',properties:{name:'CBG Project Feasibility',status:'Planning',source:'Consultancy',owner:'KIP Team'}}
+    ],
+    tenders:[
+      {id:'te1',properties:{name:'NTPC Biomass Pellet Tender',status:'Open',source:'NTPC',owner:'KIP Team'}},
+      {id:'te2',properties:{name:'State Biomass Procurement',status:'Monitoring',source:'Government Portal',owner:'KIP Team'}}
+    ],
+    applications:[
+      {id:'a1',properties:{name:'Biomass Subsidy Application',status:'In Progress',source:'KIP Consultancy',owner:'KIP Team'}},
+      {id:'a2',properties:{name:'CBG Incentive Application',status:'Under Review',source:'KIP Consultancy',owner:'KIP Team'}}
+    ],
+    schemes:[
+      {id:'s1',properties:{name:'Biomass Project Support',status:'Eligible',source:'Government Scheme',owner:'KIP Team'}},
+      {id:'s2',properties:{name:'CBG / Waste-to-Energy Support',status:'Review',source:'Government Scheme',owner:'KIP Team'}}
+    ],
+    registrations:[
+      {id:'r1',properties:{name:'Udyam Registration',status:'Completed',source:'KIP Consultancy',owner:'KIP Team'}},
+      {id:'r2',properties:{name:'IEM Registration',status:'In Progress',source:'KIP Consultancy',owner:'KIP Team'}}
+    ],
+    documents:[
+      {id:'doc1',properties:{name:'Subsidy Viability Report',status:'Ready',source:'Project',owner:'KIP Team'}},
+      {id:'doc2',properties:{name:'NTPC Tender Documents',status:'Review',source:'Tender',owner:'KIP Team'}}
+    ],
+    services:[
+      {id:'sv1',properties:{name:'Subsidy Viability Report',status:'Active',source:'Consultancy',owner:'KIP Team'}},
+      {id:'sv2',properties:{name:'Tender Consultancy',status:'Active',source:'Consultancy',owner:'KIP Team'}}
+    ],
+    quotes:[
+      {id:'q1',properties:{name:'Quote - Biomass Project',status:'Sent',source:'Sales',owner:'KIP Team'}},
+      {id:'q2',properties:{name:'Quote - Tender Consultancy',status:'Accepted',source:'Sales',owner:'KIP Team'}}
+    ],
+    invoices:[
+      {id:'i1',properties:{name:'INV-2026-001',status:'Paid',source:'Billing',owner:'KIP Team'}},
+      {id:'i2',properties:{name:'INV-2026-002',status:'Pending',source:'Billing',owner:'KIP Team'}}
+    ],
+    payments:[
+      {id:'pay1',properties:{name:'Payment - Green Energy',status:'Received',source:'Invoice',owner:'KIP Team'}},
+      {id:'pay2',properties:{name:'Payment - BioPower',status:'Pending',source:'Invoice',owner:'KIP Team'}}
+    ],
+    campaigns:[
+      {id:'ca1',properties:{name:'NTPC Tender Promotion',status:'Running',source:'Facebook + Google',owner:'KIP Team'}},
+      {id:'ca2',properties:{name:'Biomass Webinar Campaign',status:'Completed',source:'Email + WhatsApp',owner:'KIP Team'}}
+    ],
+    activities:[
+      {id:'ac1',properties:{name:'NTPC Tender Follow-up',status:'Open',source:'Call',owner:'KIP Team'}},
+      {id:'ac2',properties:{name:'Customer Meeting',status:'Completed',source:'Meeting',owner:'KIP Team'}}
+    ]
+  };
+  const local={};
+  function data(type){return (local[type]||demoData[type]||[]).map(x=>({...x,properties:{...(x.properties||{})}}))}
+  function showDemo(){
+    window.kipDemoMode=true; window.KIP_PUBLIC_DEMO=true;
+    auth.classList.add('hidden'); app.classList.remove('hidden');
+    orgLabel.textContent='KIP Financial · Public Demo';
+    if(!document.getElementById('demoBanner')){
+      const b=document.createElement('div');b.id='demoBanner';b.className='demo-banner';
+      b.innerHTML='PUBLIC DEMO MODE <span class="demo-pill">Sample Data Only</span><button class="btn" style="float:right;margin-top:-5px;padding:5px 10px" onclick="window.kipTeamLogin()">Team Login</button>';
+      document.querySelector('.main').prepend(b);
+    }
+    navigate('dashboard');
+  }
+  window.kipTeamLogin=function(){
+    window.kipDemoMode=false;document.getElementById('demoBanner')?.remove();
+    app.classList.add('hidden');auth.classList.remove('hidden');
+    authmsg.innerHTML='<div class="notice">Team Login — authorized KIP CRM users only.</div>';email.focus();
+  };
+  window.logout=function(){showDemo()};
+  const realGetRecords=window.getRecords;
+  window.getRecords=async function(type){
+    if(window.kipDemoMode)return data(type);
+    return realGetRecords(type);
+  };
+  const realSaveRecord=window.saveRecord;
+  window.saveRecord=async function(page){
+    if(!window.kipDemoMode)return realSaveRecord(page);
+    const props={};document.querySelectorAll('#modalBody input').forEach(x=>props[x.id.replace('f_','')]=x.value);
+    if(!props.name?.trim())return alert('Name is required');
+    (local[page]||(local[page]=[])).unshift({id:'demo-'+Date.now(),properties:props});
+    closeModal();renderPage();
+  };
+  window.renderDashboard=async function(){
+    const l=await getRecords('leads'),c=await getRecords('contacts'),d=await getRecords('deals'),t=await getRecords('tickets');
+    const pipeline=d.reduce((a,x)=>a+Number(x.properties?.amount||0),0),won=d.filter(x=>x.properties?.stage==='Closed Won').reduce((a,x)=>a+Number(x.properties?.amount||0),0);
+    content.innerHTML='<div class="cards">'+[['Leads',l.length],['Contacts',c.length],['Open Deals',d.filter(x=>!['Closed Won','Closed Lost'].includes(x.properties?.stage)).length],['Pipeline',money(pipeline)]].map(x=>'<div class="card"><div class="muted">'+x[0]+'</div><div class="metric">'+x[1]+'</div></div>').join('')+'</div><div class="panel"><h3>Sales Overview</h3><p class="muted">Won revenue: <b>'+money(won)+'</b> · Tickets: <b>'+t.length+'</b></p></div><div class="panel"><h3>Explore KIP CRM</h3><p>This is a public demonstration using sample data. No real customer information is exposed.</p><div class="toolbar"><button class="btn" onclick="navigate(\'leads\')">Explore Leads</button><button class="btn" onclick="navigate(\'contacts\')">Explore Contacts</button><button class="btn" onclick="navigate(\'deals\')">Open Pipeline</button><button class="btn" onclick="navigate(\'meetings\')">AI Meetings</button></div></div>';
+  };
+  const realRenderObject=window.renderObject;
+  window.renderObject=async function(page){
+    if(!window.kipDemoMode)return realRenderObject(page);
+    records=await getRecords(page);
+    content.innerHTML='<div class="toolbar"><input class="search" placeholder="Search '+objectMap[page][0]+'..." oninput="filterTable(this.value)"><span class="muted">'+records.length+' demo records</span></div><div class="panel"><div id="table"></div></div>';
+    drawTable(records,page);
+  };
+  const realRenderPage=window.renderPage;
+  window.renderPage=async function(){
+    if(!window.kipDemoMode)return realRenderPage();
+    if(current==='dashboard')return renderDashboard();
+    if(current==='meetings')return window.kipOpenMeetings();
+    if(objectMap[current])return renderObject(current);
+    if(current==='reports')return renderReports();
+    if(current==='forecast')return renderForecast();
+    if(current==='team')return renderTeam();
+    if(current==='settings')return renderSettings();
+  };
+  window.kipOpenMeetings=function(){
+    current='meetings';pageTitle.textContent='AI Meetings';action.innerHTML='<button class="btn primary" onclick="window.kipMeetingDemo()">View AI Demo</button>';
+    content.innerHTML='<div class="panel"><h2>AI Meeting Agent</h2><p class="muted">Public demonstration of KIP Meeting Intelligence.</p><div class="notice"><b>Demo Mode:</b> Sample meeting only. Live recordings require Team Login.</div><button class="btn primary" onclick="window.kipMeetingDemo()">View Sample Meeting Intelligence</button></div>';
+  };
+  window.kipMeetingDemo=function(){
+    content.innerHTML='<div class="panel"><h2>Sample Meeting Intelligence</h2><p class="muted">Customer: Green Energy Pvt. Ltd. · Meeting: Biomass Project Discussion</p><div class="cards"><div class="card"><div class="muted">Summary</div><p>Customer is evaluating a biomass pellet project and requested project viability, subsidy and tender support.</p></div><div class="card"><div class="muted">Requirements</div><p>Feasibility assessment, subsidy review and tender documentation.</p></div><div class="card"><div class="muted">Risks</div><p>Feedstock availability and project economics require validation.</p></div><div class="card"><div class="muted">Next Follow-up</div><p>KIP team to review project inputs.</p></div></div><div class="panel"><h3>Action Items</h3><ul><li>Collect project capacity and location details</li><li>Review applicable subsidy/support options</li><li>Prepare initial tender/viability discussion</li></ul></div><button class="btn" onclick="window.kipTeamLogin()">Team Login for Live Agent</button></div>';
+  };
+  const oldLogin=window.login;
+  window.login=oldLogin;
+  const style=document.createElement('style');style.textContent='.demo-banner{background:#eef4ff;color:#174ea6;border-bottom:1px solid #d5e3ff;padding:8px 18px;font-size:12px;font-weight:700}.demo-pill{display:inline-block;margin-left:7px;padding:3px 8px;border-radius:99px;background:#dbeafe}.demo-banner .btn{margin-left:8px}';document.head.appendChild(style);
+  window.addEventListener('load',()=>setTimeout(showDemo,300));
+})();
+</script></body></html>
