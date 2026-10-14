@@ -201,9 +201,20 @@ Deno.serve(async (req) => {
         });
         const data = await response.json();
         if (!response.ok) throw new Error(data.error?.message ?? "Google Calendar event creation failed.");
-        meetingUrl = data.hangoutLink ?? data.conferenceData?.entryPoints?.find((x: {entryPointType:string;uri:string}) => x.entryPointType === "video")?.uri ?? "";
-        providerMeetingId = data.id ?? ""; calendarEventId = data.id ?? null;
-        if (!meetingUrl) throw new Error("Google Calendar created the event but did not return a Meet URL. Check Workspace/Calendar settings and try again.");
+        let eventData = data;
+        meetingUrl = eventData.hangoutLink ?? eventData.conferenceData?.entryPoints?.find((x: {entryPointType:string;uri:string}) => x.entryPointType === "video")?.uri ?? "";
+        providerMeetingId = eventData.id ?? ""; calendarEventId = eventData.id ?? null;
+        // Google can create conference details asynchronously; briefly re-read the event before reporting failure.
+        for (let attempt = 0; !meetingUrl && attempt < 6 && calendarEventId; attempt++) {
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          const check = await fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events/" + encodeURIComponent(calendarEventId), {
+            headers: { Authorization: "Bearer " + access },
+          });
+          if (!check.ok) continue;
+          eventData = await check.json();
+          meetingUrl = eventData.hangoutLink ?? eventData.conferenceData?.entryPoints?.find((x: {entryPointType:string;uri:string}) => x.entryPointType === "video")?.uri ?? "";
+        }
+        if (!meetingUrl) throw new Error("Google Calendar created the event, but Meet has not returned a join URL yet. Check Google Calendar/Workspace Meet settings before retrying to avoid creating a duplicate event.");
       } else if (provider === "zoom") {
         const duration = Math.max(1, Math.round((end.getTime() - start.getTime()) / 60000));
         const response = await fetch("https://api.zoom.us/v2/users/me/meetings", {
