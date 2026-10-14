@@ -141,7 +141,7 @@ Deno.serve(async (req) => {
       const update = {
         provider_account_email: email,
         access_token_ciphertext: await encrypt(token.access_token),
-        refresh_token_ciphertext: await encrypt(token.refresh_token ?? row.refresh_token_ciphertext ? await decrypt(row.refresh_token_ciphertext) : null),
+        refresh_token_ciphertext: await encrypt(token.refresh_token ?? await decrypt(row.refresh_token_ciphertext)),
         expires_at: new Date(Date.now() + Number(token.expires_in ?? 3600) * 1000).toISOString(),
         scopes: token.scope ?? scopes[provider], status: "connected",
         oauth_state: null, oauth_state_expires_at: null, updated_at: new Date().toISOString(),
