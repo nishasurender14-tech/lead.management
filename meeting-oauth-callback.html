@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KIP CRM — Connecting meeting provider</title><style>body{font:16px system-ui,sans-serif;max-width:680px;margin:12vh auto;padding:24px;color:#18212f}main{border:1px solid #dbe1ea;border-radius:16px;padding:28px}p{line-height:1.6}a{color:#175cd3}</style></head>
+<body><main><h1>Connecting your meeting provider…</h1><p id="status">Please wait. Do not close this tab.</p><p><a id="back" href="https://nishasurender14-tech.github.io/lead.management/">Return to KIP CRM</a></p></main>
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+const SUPABASE_URL = "https://bjmmjqdraxqxbhapbtgt.supabase.co";
+const SUPABASE_KEY = "sb_publishable_vqimhjzNl5KslplGiiCJxw_HiH46kzx";
+const APP_URL = "https://nishasurender14-tech.github.io/lead.management/";
+const statusEl = document.getElementById("status");
+const params = new URLSearchParams(location.search);
+const provider = params.get("provider") || sessionStorage.getItem("kip_meeting_provider") || "google_meet";
+const error = params.get("error");
+document.getElementById("back").href = APP_URL;
+try {
+ if (error) throw new Error("Provider authorization was cancelled or failed: " + error);
+ const code = params.get("code"), state = params.get("state");
+ if (!code || !state) throw new Error("Missing OAuth code/state. Return to CRM and try Connect again.");
+ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+ const { data: { session } } = await supabase.auth.getSession();
+ if (!session?.access_token) throw new Error("Your KIP CRM login session was not found in this browser. Sign in to CRM in this same browser, then reconnect.");
+ const response = await fetch(SUPABASE_URL + "/functions/v1/meeting-provider", {
+   method:"POST", headers:{"Content-Type":"application/json","apikey":SUPABASE_KEY,"Authorization":"Bearer "+session.access_token},
+   body:JSON.stringify({action:"callback",provider,code,state})
+ });
+ const result = await response.json();
+ if (!response.ok) throw new Error(result.error || "Could not finish provider connection.");
+ statusEl.textContent = "Connected successfully as " + (result.account_email || "your account") + ". Returning to KIP CRM…";
+ setTimeout(() => location.replace(APP_URL + "?meetingProviderConnected=" + encodeURIComponent(provider)), 1100);
+} catch (e) {
+ statusEl.textContent = e?.message || "Connection failed. Return to KIP CRM and try again.";
+}
+</script></body></html>
